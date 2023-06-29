@@ -1,0 +1,27 @@
+serviceName: umm_service
+logger:
+  level: debug
+  devMode: true
+  encoder: console
+timeouts:
+  postgresInitMilliseconds: 1500
+  postgresInitRetryCount: 3
+postgres:
+  host: localhost
+  port: 5433
+  user: umm
+  password: umm
+  dbName: umm
+  sslMode: false
+http:
+  port: :5000
+  development: true
+  basePath: /api/v1
+  bankAccountsPath: /api/v1/accounts
+  debugErrorsResponse: true
+  ignoreLogUrls: [ "metrics", "swagger" ]
+migrations:
+  enable: false
+  recreate: false
+  sourceURL: "file://migrations"
+  dbURL: "postgres://umm:umm@localhost:5433/bank_accounts?sslmode=disable"
