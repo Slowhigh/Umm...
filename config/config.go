@@ -7,6 +7,8 @@ import (
 
 	"github.com/pkg/errors"
 	"github.com/slowhigh/Umm/pkg/constants"
+	"github.com/slowhigh/Umm/pkg/event_stores"
+	"github.com/slowhigh/Umm/pkg/kafka_client"
 	"github.com/slowhigh/Umm/pkg/logger"
 	"github.com/slowhigh/Umm/pkg/migrations"
 	"github.com/slowhigh/Umm/pkg/postgres"
@@ -20,12 +22,14 @@ func init() {
 }
 
 type Config struct {
-	ServiceName      string            `mapstructure:"serviceName"`
-	Logger           logger.LogConfig  `mapstructure:"logger"`
-	Timeouts         Timeouts          `mapstructure:"timeouts" validate:"required"`
-	Postgresql       postgres.Config   `mapstructure:"postgres"`
-	Http             Http              `mapstructure:"http"`
-	MigrationsConfig migrations.Config `mapstructure:"migrations" validate:"required"`
+	ServiceName          string                          `mapstructure:"serviceName"`
+	Logger               logger.LogConfig                `mapstructure:"logger"`
+	Timeouts             Timeouts                        `mapstructure:"timeouts" validate:"required"`
+	Postgresql           postgres.Config                 `mapstructure:"postgres"`
+	Kafka                *kafka_client.Config             `mapstructure:"kafka" validate:"required"`
+	KafkaPublisherConfig event_stores.KafkaEventBusConfig `mapstructure:"kafkaPublisherConfig" validate:"required"`
+	Http                 Http                            `mapstructure:"http"`
+	MigrationsConfig     migrations.Config               `mapstructure:"migrations" validate:"required"`
 }
 
 type Timeouts struct {
@@ -86,6 +90,11 @@ func InitConfig() (*Config, error) {
 	dbUrl := os.Getenv(constants.MigrationsDbUrl)
 	if dbUrl != "" {
 		cfg.MigrationsConfig.DbURL = dbUrl
+	}
+
+	kafkaBrokers := os.Getenv(constants.KafkaBrokers)
+	if kafkaBrokers != "" {
+		cfg.Kafka.Brokers = []string{kafkaBrokers}
 	}
 
 	return cfg, nil

@@ -22,6 +22,7 @@ type Logger interface {
 	Infof(template string, args ...interface{})
 	Warn(args ...interface{})
 	Warnf(template string, args ...interface{})
+	WarnErrMsg(msg string, err error)
 	Error(args ...interface{})
 	Errorf(template string, args ...interface{})
 	Fatal(args ...interface{})
@@ -119,6 +120,10 @@ func (l *appLogger) Warn(args ...interface{}) {
 
 func (l *appLogger) Warnf(template string, args ...interface{}) {
 	l.sugarLogger.Warnf(template, args...)
+}
+
+func (l *appLogger) WarnErrMsg(msg string, err error) {
+	l.logger.Warn(msg, zap.String("error", err.Error()))
 }
 
 func (l *appLogger) Error(args ...interface{}) {

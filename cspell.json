@@ -14,6 +14,8 @@
     "Warnf",
     "healthcheck",
     "labstack",
-    "middlewares"
+    "middlewares",
+    "segmentio",
+    "Acks"
   ]
 }
