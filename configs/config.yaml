@@ -1,0 +1,17 @@
+server:
+  auth:
+    port: 5000
+    timeout: 1s
+  memo:
+    port: 5001
+    timeout: 1s
+database:
+  postgres:
+    host: 127.0.0.1
+    port: 5432
+    db: "umm"
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    read_timeout: 0.2s
+    write_timeout: 0.2s
