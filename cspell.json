@@ -7,6 +7,8 @@
   "words": [
     "gonic",
     "mapstructure",
-    "slowhigh"
+    "slowhigh",
+    "Usecase",
+    "gorm"
   ]
 }

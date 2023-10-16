@@ -5,11 +5,11 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
-	config "github.com/slowhigh/umm/internal/conf"
+	"github.com/slowhigh/umm/configs"
 )
 
 func main() {
-	cfg, err := config.Load()
+	cfg, err := configs.Load()
 	if err != nil {
 		panic(err)
 	}
@@ -20,5 +20,5 @@ func main() {
 			"message": "pong",
 		})
 	})
-	r.Run(fmt.Sprintf(":%d", cfg.Server.Auth.Port))
+	r.Run(fmt.Sprintf(":%d", cfg.Server.Port))
 }

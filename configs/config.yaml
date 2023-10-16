@@ -1,9 +1,6 @@
 server:
-  auth:
+  http:
     port: 5000
-    timeout: 1s
-  memo:
-    port: 5001
     timeout: 1s
 database:
   postgres:

@@ -1,4 +1,4 @@
-package config
+package configs
 
 import (
 	"fmt"
@@ -7,12 +7,7 @@ import (
 )
 
 type Config struct {
-	Server Server `mapstructure:"server" validate:"required"`
-}
-
-type Server struct {
-	Auth Http `mapstructure:"auth" validate:"required"`
-	Memo Http `mapstructure:"memo" validate:"required"`
+	Server Http `mapstructure:"http" validate:"required"`
 }
 
 type Http struct {
